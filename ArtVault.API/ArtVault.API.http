@@ -1,0 +1,6 @@
+@ArtVault.API_HostAddress = http://localhost:5097
+
+GET {{ArtVault.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
