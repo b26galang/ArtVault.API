@@ -1,0 +1,25 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ArtVault.API.Models
+{
+    public class Comment
+    {
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required(ErrorMessage = "Comment cannot be empty.")]
+        [StringLength(500, ErrorMessage = "Comment cannot be longer than 500 characters.")]
+        public string content { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+
+        [ForeignKey("User")]
+        public Guid UserId { get; set; }
+
+        [ForeignKey("Post")]
+        public Guid PostId { get; set; }
+
+    }
+}
