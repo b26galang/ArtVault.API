@@ -13,13 +13,17 @@ namespace ArtVault.API.Models
         public string content { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+
+        public virtual User User { get; set; }
 
         [ForeignKey("User")]
         public Guid UserId { get; set; }
 
         [ForeignKey("Post")]
         public Guid PostId { get; set; }
+
+        public virtual Post Post { get; set; }  
 
     }
 }
