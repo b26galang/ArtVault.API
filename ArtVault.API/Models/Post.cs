@@ -9,9 +9,11 @@ namespace ArtVault.API.Models
         public Guid Id { get; set; }
 
         public ICollection<string> ImageUrls { get; set; } = new List<string>();
-        
+
+        [StringLength(100, ErrorMessage = "Caption cannot exceed 100 chararacters.")]
         public string? Title { get; set; }
 
+        [StringLength(250, ErrorMessage = "Caption cannot exceed 250 chararacters.")]
         public string? Caption { get; set; }
 
         [DataType(DataType.DateTime)]
