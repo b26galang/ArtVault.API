@@ -394,5 +394,6 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-# JetBrains Rider
-*.sln.iml
+# Entity Framework Core migrations
+/Migrations/
+/ArtVault.API/Migrations
