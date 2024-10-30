@@ -14,6 +14,8 @@ namespace ArtVault.API.Models
         [EmailAddress]
         public string Email { get; set; }
 
+        public string? ProfileImgUrl { get; set; }
+
         [DataType(DataType.DateTime)]
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
