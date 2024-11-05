@@ -1,6 +1,5 @@
 ﻿using ArtVault.API.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity.Migrations;
 
 namespace ArtVault.API.Data
 {
