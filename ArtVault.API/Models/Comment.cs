@@ -6,11 +6,11 @@ namespace ArtVault.API.Models
     public class Comment
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "Comment cannot be empty.")]
         [StringLength(500, ErrorMessage = "Comment cannot be longer than 500 characters.")]
-        public string content { get; set; }
+        public string Content { get; set; }
 
         [DataType(DataType.DateTime)]
         public DateTime CreatedOn { get; set; } = DateTime.Now;

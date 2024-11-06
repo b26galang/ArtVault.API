@@ -5,7 +5,7 @@ namespace ArtVault.API.Models
     public class User
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "Username is required.")]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Username must be between 3 and 2 characters long.")]

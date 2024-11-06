@@ -1,4 +1,7 @@
 ﻿using ArtVault.API.Data;
+using ArtVault.API.DTOs;
+using ArtVault.API.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,20 +12,23 @@ namespace ArtVault.API.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ApplicationDBContext _dbContext;
-        public CommentController(ApplicationDBContext dbContext)
+        private readonly IMapper _mapper;
+        public CommentController(ApplicationDBContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllComments()
         {
             var comments = await _dbContext.Comments.ToListAsync();
-            return Ok(comments);
+            var commentsDtos = _mapper.Map<List<CommentDto>>(comments);
+            return Ok(commentsDtos);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        public async Task<IActionResult> GetCommentById([FromRoute] Guid id)
         {
             var comment = await _dbContext.Comments.FindAsync(id);
 
@@ -31,7 +37,58 @@ namespace ArtVault.API.Controllers
                 return NotFound();
             }
 
-            return Ok(comment);
+            var commentDto = _mapper.Map<CommentDto>(comment);
+            return Ok(commentDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateComment([FromBody] CreateCommentDto createCommentDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var comment = _mapper.Map<Comment>(createCommentDto);
+
+            await _dbContext.Comments.AddAsync(comment);
+            await _dbContext.SaveChangesAsync();
+
+            var commentDto = _mapper.Map<CommentDto>(comment);
+
+            return CreatedAtAction(nameof(GetCommentById), new { id = comment.Id }, commentDto);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateComment(Guid id, [FromBody] UpdateCommentDto updateCommentDto)
+        {
+            var comment = await _dbContext.FindAsync<Comment>(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            comment.Content = updateCommentDto.Content;
+
+            await _dbContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteComment(Guid id)
+        {
+            var comment = await _dbContext.Comments.FindAsync(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            _dbContext.Comments.Remove(comment);
+
+            await _dbContext.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

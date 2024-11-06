@@ -6,7 +6,7 @@ namespace ArtVault.API.Models
     public class Post
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public required string ImageUrl { get; set; }
 
