@@ -70,7 +70,7 @@ namespace ArtVault.API.Controllers
                 return NotFound();
             }
 
-            comment.Content = updateCommentDto.Content;
+            _mapper.Map(updateCommentDto, comment);
 
             await _dbContext.SaveChangesAsync();
 
@@ -78,6 +78,7 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteComment(Guid id)
         {
             var comment = await _dbContext.Comments.FindAsync(id);
