@@ -2,6 +2,7 @@
 using ArtVault.API.DTOs;
 using ArtVault.API.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +43,7 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateComment([FromBody] CreateCommentDto createCommentDto)
         {
             if (!ModelState.IsValid)
@@ -58,6 +60,7 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateComment(Guid id, [FromBody] UpdateCommentDto updateCommentDto)
         {
             var comment = await _dbContext.FindAsync<Comment>(id);
