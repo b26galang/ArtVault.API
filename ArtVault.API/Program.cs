@@ -49,6 +49,14 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", builder =>
+    builder.WithOrigins("http://localhost:4200")
+           .AllowAnyMethod()
+           .AllowAnyHeader());
+});
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
@@ -64,6 +72,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAngularApp");
 
 app.UseHttpsRedirection();
 
