@@ -10,10 +10,10 @@ namespace ArtVault.API.Models
 
         public required string ImageUrl { get; set; }
 
-        [StringLength(100, ErrorMessage = "Caption cannot exceed 100 chararacters.")]
+        [StringLength(100, ErrorMessage = "Caption cannot exceed 100 characters.")]
         public string? Title { get; set; }
 
-        [StringLength(250, ErrorMessage = "Caption cannot exceed 250 chararacters.")]
+        [StringLength(250, ErrorMessage = "Caption cannot exceed 250 characters.")]
         public string? Caption { get; set; }
 
         [DataType(DataType.DateTime)]
