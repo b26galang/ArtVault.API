@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArtVault.API.Controllers
 {
-    [Route("api/user")]
+    [Route("api/users")]
     [ApiController]
     public class UserController : ControllerBase
     {

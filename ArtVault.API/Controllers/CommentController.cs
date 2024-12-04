@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArtVault.API.Controllers
 {
-    [Route("api/comment")]
+    [Route("api/comments")]
     [ApiController]
     public class CommentController : ControllerBase
     {

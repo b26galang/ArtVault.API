@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ArtVault.API.Controllers
 {
-    [Route("api/post")]
+    [Route("api/posts")]
     [ApiController]
     public class PostController : ControllerBase
     {
