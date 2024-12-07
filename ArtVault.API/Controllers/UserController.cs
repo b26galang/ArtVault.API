@@ -29,10 +29,10 @@ namespace ArtVault.API.Controllers
             return Ok(userDtos);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById([FromRoute] Guid id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUserById([FromRoute] Guid userId)
         {
-            var user = await _dbContext.Users.FindAsync(id);
+            var user = await _dbContext.Users.FindAsync(userId);
 
             if (user == null)
             {
@@ -45,44 +45,56 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserRequestDto userRequestDto)
+        public async Task<IActionResult> CreateUser([FromBody] UserCreationDto userCreationDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (userCreationDto == null || string.IsNullOrEmpty(userCreationDto.Auth0UserId))
+            {
+                return BadRequest("Invalid user data.");
+            }
 
-            var user = _mapper.Map<User>(userRequestDto);
+            var existingUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Auth0UserId == userCreationDto.Auth0UserId);
 
-            await _dbContext.Users.AddAsync(user);
+            if (existingUser != null)
+            {
+                return Ok("User already exists.");
+            }
+
+            var newUser = _mapper.Map<User>(userCreationDto);
+
+            // Set additional properties if needed
+            newUser.CreatedOn = DateTime.UtcNow; // Set current time
+            newUser.UserId = Guid.NewGuid();    // Ensure GUID is generated if not automatically
+
+            // Save the user
+            _dbContext.Users.Add(newUser);
             await _dbContext.SaveChangesAsync();
 
-            var userDto = _mapper.Map<UserDto>(user);
-
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, userDto);
+            return CreatedAtAction(nameof(GetUserById), new { userId = newUser.UserId }, newUser);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{userId}")]
         [Authorize]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UserRequestDto userRequestDto)
+        public async Task<IActionResult> UpdateUser(Guid userId, [FromBody] UserUpdateDto userUpdateDto)
         {
-            var user = await _dbContext.FindAsync<User>(id);
+            var user = await _dbContext.FindAsync<User>(userId);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            _mapper.Map(userRequestDto, user);
+            _mapper.Map(userUpdateDto, user);
 
             await _dbContext.SaveChangesAsync();
 
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{userId}")]
         [Authorize]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteUser(string userId)
         {
-            var user = await _dbContext.Users.FindAsync(id);
+            var user = await _dbContext.Users.FindAsync(userId);
 
             if (user == null)
             {

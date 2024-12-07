@@ -43,6 +43,23 @@ namespace ArtVault.API.Controllers
             return Ok(postDto);
         }
 
+        [HttpGet("{postId}/comments")]
+        public async Task<IActionResult> GetCommentsForPost(Guid postId)
+        {
+            var comments = await _dbContext.Comments
+                .Where(c => c.PostId == postId)
+                .ToListAsync();
+
+            if (comments.Count == 0)
+            {
+                return NotFound("No comments found for this post.");
+            }
+
+            var commentDtos = _mapper.Map<List<CommentDto>>(comments);
+
+            return Ok(commentDtos);
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreatePost([FromBody] CreatePostDto createPostDto)
