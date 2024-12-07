@@ -6,5 +6,6 @@ namespace ArtVault.API.DTOs
         public string Title { get; set; }
         public string Caption { get; set; }
         public Guid UserId { get; set; }
+        public string Username { get; set; }
     }
 }

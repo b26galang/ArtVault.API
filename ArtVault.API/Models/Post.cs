@@ -26,6 +26,7 @@ namespace ArtVault.API.Models
 
         [ForeignKey("User")]
         public Guid UserId { get; set; }
+        public string Username { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }

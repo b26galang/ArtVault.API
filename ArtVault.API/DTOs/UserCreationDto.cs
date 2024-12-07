@@ -1,11 +1,9 @@
-namespace ArtVault.API.DTOs
+﻿namespace ArtVault.API.DTOs
 {
-    public class UserDto
+    public class UserCreationDto
     {
-        public Guid UserId { get; set; }
         public string Auth0UserId { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public string ProfileImgUrl { get; set; }
     }
 }

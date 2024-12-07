@@ -19,6 +19,7 @@ namespace ArtVault.API.Models
 
         [ForeignKey("User")]
         public Guid UserId { get; set; }
+        public string Username { get; set; }
 
         [ForeignKey("Post")]
         public Guid PostId { get; set; }

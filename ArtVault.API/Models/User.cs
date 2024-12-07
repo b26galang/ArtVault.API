@@ -5,19 +5,13 @@ namespace ArtVault.API.Models
     public class User
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public required Guid UserId { get; set; }
+        public string Auth0UserId { get; set; } // From Auth0
 
-        public string? Auth0UserId { get; set; }
+        public required string Username { get; set; } // From Auth0
 
-        [Required(ErrorMessage = "Username is required.")]
-        [StringLength(20, MinimumLength = 3, ErrorMessage = "Username must be between 3 and 2 characters long.")]
-        [RegularExpression(@"^[a-zA-Z-9]*$", ErrorMessage = "Username can only contain alphanumeric characters.")]
-
-        public required string Username { get; set; }
-
-        [Required(ErrorMessage = "Email address is required.")]
-        [EmailAddress(ErrorMessage = "Email address is invalid.")]
-        public string Email { get; set; }
+        [Required]
+        public string Email { get; set; } // from Auth0
 
         public string? ProfileImgUrl { get; set; }
 
