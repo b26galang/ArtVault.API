@@ -44,6 +44,23 @@ namespace ArtVault.API.Controllers
             return Ok(userDto);
         }
 
+        [HttpGet("auth/{auth0UserId}")]
+        public async Task<IActionResult> GetUserByAuth0UserId([FromRoute] string auth0UserId)
+        {
+            var user = await _dbContext.Users
+                .Where(u => u.Auth0UserId == auth0UserId)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return Ok(userDto);
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> CreateUser([FromBody] UserCreationDto userCreationDto)
         {
