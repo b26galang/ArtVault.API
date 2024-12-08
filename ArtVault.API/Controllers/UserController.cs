@@ -44,7 +44,7 @@ namespace ArtVault.API.Controllers
             return Ok(userDto);
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> CreateUser([FromBody] UserCreationDto userCreationDto)
         {
             if (userCreationDto == null || string.IsNullOrEmpty(userCreationDto.Auth0UserId))

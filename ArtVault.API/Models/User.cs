@@ -8,7 +8,7 @@ namespace ArtVault.API.Models
         public required Guid UserId { get; set; }
         public string Auth0UserId { get; set; } // From Auth0
 
-        public required string Username { get; set; } // From Auth0
+        public string? Username { get; set; }
 
         [Required]
         public string Email { get; set; } // from Auth0
