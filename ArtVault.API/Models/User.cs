@@ -6,9 +6,8 @@ namespace ArtVault.API.Models
     {
         [Key]
         public required Guid UserId { get; set; }
-        public string Auth0UserId { get; set; } // From Auth0
-
-        public string? Username { get; set; }
+        public string Auth0UserId { get; set; } // From Auth0        
+        public required string Username { get; set; } // Initially set from Auth0
 
         [Required]
         public string Email { get; set; } // from Auth0
