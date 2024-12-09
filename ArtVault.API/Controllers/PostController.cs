@@ -60,6 +60,23 @@ namespace ArtVault.API.Controllers
             return Ok(commentDtos);
         }
 
+        [HttpGet("{userId}/posts")]
+        public async Task<IActionResult> GetPostsForUser(Guid userId)
+        {
+            var posts = await _dbContext.Posts
+                .Where(p => p.UserId == userId)
+                .ToListAsync();
+
+            if (posts.Count == 0)
+            {
+                return NotFound("No posts found for this user.");
+            }
+
+            var postDtos = _mapper.Map<List<PostDto>>(posts);
+
+            return Ok(postDtos);
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreatePost([FromBody] CreatePostDto createPostDto)
