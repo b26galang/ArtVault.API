@@ -81,6 +81,7 @@ namespace ArtVault.API.Controllers
             // Set additional properties if needed
             newUser.CreatedOn = DateTime.UtcNow; // Set current time
             newUser.UserId = Guid.NewGuid();    // Ensure GUID is generated if not automatically
+            newUser.IsAdmin = false;
 
             // Save the user
             _dbContext.Users.Add(newUser);

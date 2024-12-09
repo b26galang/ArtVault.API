@@ -7,5 +7,6 @@ namespace ArtVault.API.DTOs
         public string Username { get; set; }
         public string Email { get; set; }
         public string ProfileImgUrl { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
