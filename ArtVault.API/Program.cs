@@ -18,6 +18,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 {
     options.Authority = $"https://{auth0Domain}/";
     options.Audience = auth0Audience;
+
+    options.Events = new JwtBearerEvents
+    {
+        OnChallenge = context =>
+        {
+            context.HandleResponse();
+
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            context.Response.ContentType = "application/json";
+            var responseMessage = new { error = "You must provide a valid token to access this endpoint." };
+            return context.Response.WriteAsJsonAsync(responseMessage);
+        }
+    };
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
