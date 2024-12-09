@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace ArtVault.API.Models
 {
@@ -23,5 +24,7 @@ namespace ArtVault.API.Models
         public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 
         public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
+        public bool IsAdmin { get; set; }
     }
 }
