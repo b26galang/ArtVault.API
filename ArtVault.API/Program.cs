@@ -37,6 +37,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Art Vault API", Version = "v1" });
+
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -80,10 +82,14 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Art Vault API v1");
+        c.RoutePrefix = "swagger";
+    });
 }
 
 app.UseCors("AllowAngularApp");
