@@ -22,7 +22,7 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPosts()
+        public async Task<IActionResult> GetPosts()
         {
             var posts = await _dbContext.Posts.ToListAsync();
             var postDtos = _mapper.Map<List<PostDto>>(posts);
@@ -30,7 +30,7 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPostById([FromRoute] Guid id)
+        public async Task<IActionResult> GetPost([FromRoute] Guid id)
         {
             var post = await _dbContext.Posts.FindAsync(id);
 
@@ -91,7 +91,7 @@ namespace ArtVault.API.Controllers
 
             var postDto = _mapper.Map<PostDto>(post);
 
-            return CreatedAtAction(nameof(GetPostById), new { id = post.Id }, postDto);
+            return CreatedAtAction(nameof(GetPost), new { id = post.Id }, postDto);
         }
 
         [HttpPut("{id}")]

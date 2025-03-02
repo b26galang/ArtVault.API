@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtVault.API", "ArtVault.API\ArtVault.API.csproj", "{1926A54F-8F65-4F35-9992-28EBBA1EF422}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtVault.API.Tests", "ArtVault.API.Tests\ArtVault.API.Tests.csproj", "{754674B8-4DBE-4F3F-B3F6-7E8DED0B91FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1926A54F-8F65-4F35-9992-28EBBA1EF422}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1926A54F-8F65-4F35-9992-28EBBA1EF422}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1926A54F-8F65-4F35-9992-28EBBA1EF422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{754674B8-4DBE-4F3F-B3F6-7E8DED0B91FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{754674B8-4DBE-4F3F-B3F6-7E8DED0B91FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{754674B8-4DBE-4F3F-B3F6-7E8DED0B91FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{754674B8-4DBE-4F3F-B3F6-7E8DED0B91FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

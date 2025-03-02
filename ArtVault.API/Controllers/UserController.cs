@@ -22,7 +22,7 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetUsers()
         {
             var users = await _dbContext.Users.ToListAsync();
             var userDtos = _mapper.Map<List<UserDto>>(users);
@@ -30,7 +30,7 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpGet("{userId}")]
-        public async Task<IActionResult> GetUserById([FromRoute] Guid userId)
+        public async Task<IActionResult> GetUser([FromRoute] Guid userId)
         {
             var user = await _dbContext.Users.FindAsync(userId);
 
@@ -87,7 +87,7 @@ namespace ArtVault.API.Controllers
             _dbContext.Users.Add(newUser);
             await _dbContext.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUserById), new { userId = newUser.UserId }, newUser);
+            return CreatedAtAction(nameof(GetUser), new { userId = newUser.UserId }, newUser);
         }
 
         [HttpPut("{userId}")]
