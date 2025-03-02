@@ -21,7 +21,7 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllComments()
+        public async Task<IActionResult> GetComments()
         {
             var comments = await _dbContext.Comments.ToListAsync();
             var commentsDtos = _mapper.Map<List<CommentDto>>(comments);
@@ -29,7 +29,7 @@ namespace ArtVault.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCommentById([FromRoute] Guid id)
+        public async Task<IActionResult> GetComment([FromRoute] Guid id)
         {
             var comment = await _dbContext.Comments.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace ArtVault.API.Controllers
         [Authorize]
         public async Task<IActionResult> CreateComment([FromBody] CreateCommentDto createCommentDto)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) 
                 return BadRequest(ModelState);
 
             var comment = _mapper.Map<Comment>(createCommentDto);
@@ -56,7 +56,7 @@ namespace ArtVault.API.Controllers
 
             var commentDto = _mapper.Map<CommentDto>(comment);
 
-            return CreatedAtAction(nameof(GetCommentById), new { id = comment.Id }, commentDto);
+            return CreatedAtAction(nameof(GetComment), new { id = comment.Id }, commentDto);
         }
 
         [HttpPut("{id}")]

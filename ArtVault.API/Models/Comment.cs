@@ -8,8 +8,6 @@ namespace ArtVault.API.Models
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [Required(ErrorMessage = "Comment cannot be empty.")]
-        [StringLength(500, ErrorMessage = "Comment cannot be longer than 500 characters.")]
         public string Content { get; set; }
 
         [DataType(DataType.DateTime)]
