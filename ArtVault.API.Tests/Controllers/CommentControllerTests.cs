@@ -199,6 +199,7 @@ namespace ArtVault.API.Tests.Controllers
             var nonExistentCommentId = Guid.NewGuid();
             var result = await _controller.DeleteComment(nonExistentCommentId);
             Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<NotFoundResult>(result);
         }
     }
 }
