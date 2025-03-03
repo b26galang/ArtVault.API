@@ -21,8 +21,11 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
+      - name: Build the solution
+        run: dotnet build --configuration Release
+
       - name: Run Unit tests
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --verbosity normal
 
       - name: Run SonarCloud analysis
         uses: SonarSource/sonarcloud-github-action@v1
