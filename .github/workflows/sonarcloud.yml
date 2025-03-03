@@ -1,0 +1,30 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build-and-analyze:
+    name: Build, Test, and Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '9.x'
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Run Unit tests
+        run: dotnet test --no-build --verbosity normal
+
+      - name: Run SonarCloud analysis
+        uses: SonarSource/sonarcloud-github-action@v1
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
