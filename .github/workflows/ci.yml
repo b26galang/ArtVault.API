@@ -1,25 +1,25 @@
-# name: CI Pipeline
+ name: CI Pipeline
 
-# on:
-#   pull_request:
-#     branches:
-#       - main
-# jobs:
-#   build-and-analyze:
-#     name: Build, Test, and Analyze
-#     runs-on: ubuntu-latest
+ on:
+   pull_request:
+     branches:
+       - main
+ jobs:
+   build-and-analyze:
+     name: Build, Test, and Analyze
+     runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
+     steps:
+       - name: Checkout repository
+         uses: actions/checkout@v4
 
-#       - name: Set up .NET
-#         uses: actions/setup-dotnet@v4
-#         with:
-#           dotnet-version: '3.1'
+       - name: Set up .NET
+         uses: actions/setup-dotnet@v4
+         with:
+           dotnet-version: '9.x'
 
-#       - name: Install dependencies
-#        run: dotnet restore
+       - name: Install dependencies
+         run: dotnet restore
 
-#       - name: Run Unit tests
-#         run: dotnet test --no-build --verbosity normal
+       - name: Run Unit tests
+         run: dotnet test --no-build --verbosity normal
