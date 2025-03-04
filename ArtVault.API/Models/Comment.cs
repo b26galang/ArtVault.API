@@ -7,21 +7,14 @@ namespace ArtVault.API.Models
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
-
-        public string Content { get; set; }
-
-        [DataType(DataType.DateTime)]
+        public required string Content { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-
         public virtual User User { get; set; }
-
         [ForeignKey("User")]
         public Guid UserId { get; set; }
         public string Username { get; set; }
-
         [ForeignKey("Post")]
         public Guid PostId { get; set; }
-
         public virtual Post Post { get; set; }  
 
     }

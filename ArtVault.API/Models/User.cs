@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ArtVault.API.Models
 {
@@ -7,18 +6,14 @@ namespace ArtVault.API.Models
     {
         [Key]
         public required Guid UserId { get; set; }
-        public string Auth0UserId { get; set; } // From Auth0        
-        public required string Username { get; set; } // Initially set from Auth0
-
-        [Required]
+        public string? Auth0UserId { get; set; } // From Auth0        
+        public string? Username { get; set; } // Initially set from Auth0
         public string Email { get; set; } // from Auth0
 
         public string? ProfileImgUrl { get; set; }
 
-        [DataType(DataType.DateTime)]
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
-        [DataType(DataType.DateTime)]
         public DateTime ModifiedOn { get; set; } = DateTime.Now;
 
         public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
