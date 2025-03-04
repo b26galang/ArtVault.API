@@ -31,7 +31,7 @@ namespace ArtVault.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetComment([FromRoute] Guid id)
         {
-            var comment = await _dbContext.Comments.FindAsync(id);
+            var comment = await _dbContext.Comments.FindAsync(Guid.NewGuid());
 
             if (comment == null)
             {
