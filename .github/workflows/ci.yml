@@ -18,8 +18,14 @@
          with:
            dotnet-version: '9.x'
 
+       - name: Clear NuGet Cache
+         run: dotnet nuget locals all --clear
+
+       - name: Clean old builds
+         run: dotnet clean
+
        - name: Install dependencies
          run: dotnet restore
 
        - name: Run Unit tests
-         run: dotnet test --no-build --verbosity normal
+         run: dotnet test --configuration Release
